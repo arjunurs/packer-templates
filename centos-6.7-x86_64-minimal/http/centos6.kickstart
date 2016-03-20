@@ -1,0 +1,87 @@
+# Relevant documentation:
+# RHEL 6 Kickstart Options
+#   https://access.redhat.com/documentation/en-US/Red_Hat_Enterprise_Linux/6/html/Installation_Guide/s1-kickstart2-options.html
+# CentOS Image Standards
+#   https://github.com/CentOS/ImageStandards
+# Vagrant BaseBox Documentation
+#   https://www.vagrantup.com/docs/boxes/base.html
+# Packer Documentation
+#   https://www.packer.io/docs/
+
+# Disable the root account
+rootpw --iscrypted !!
+# Create a regular user 'packer'
+# packer is given sudo in %post
+user --name=packer --password=packer
+
+# US + UTC
+keyboard us
+lang en_US.UTF-8
+timezone --utc Etc/UTC
+
+# Install from an attached cdrom
+install
+cdrom
+
+# Do the install on the console instead of UI
+cmdline
+# Don't configure X
+skipx
+reboot
+# Skip the firstboot wizard
+firstboot --disabled
+
+
+authconfig --passalgo=sha512
+
+# Initialize networking and use DHCP to get an address
+# Needed for %post
+network --bootproto=dhcp
+
+# Disable Firewall and SELinux
+firewall --disabled
+selinux --disabled
+
+# Initialize any invalid partition tables
+zerombr
+# Really disable selinux
+bootloader --location=mbr --append="selinux=0"
+# Create a single ext4 partition covering the entire disk
+clearpart --all
+part / --fstype=ext4 --grow --asprimary --size=1
+
+# Minimal package set
+# Keep in mind the install is being done against the minimal ISO which has a
+# very minimal set of packages present. Any additional software probably needs
+# to be installed via yum in the %post section.
+%packages --nobase --excludedocs
+@core
+-iscsi-initiator-utils
+-device-mapper-multipath
+%end
+
+%post
+# Run the post section in a subshell display it on tty3 which we switch to for
+# viewing. Also tee it to /var/log/post_install.log for later review if
+# necessary.
+exec < /dev/tty3 > /dev/tty3
+chvt 3
+(
+# Apply any updates available. Don't want to ship a box with known security
+# vulnerabilities.
+yum -y update
+# Install man pages
+yum -y install yum-utils man man-pages
+
+# Allow passwordless sudo for packer account
+echo 'packer ALL=(ALL) NOPASSWD: ALL' > /etc/sudoers.d/packer
+
+# Enabled reverse DNS lookups for SSH can cause slowness, disable them
+echo "UseDNS no" >> /etc/ssh/sshd_config
+
+# Disable the sudo requirement for an interactive session. Required for most
+# automation that uses ssh + sudo: ansible, packer, etc
+sed -i "s/^.*requiretty/#Defaults requiretty/" /etc/sudoers
+) 2>&1 | /usr/bin/tee /var/log/post_install.log
+chvt 1
+%end

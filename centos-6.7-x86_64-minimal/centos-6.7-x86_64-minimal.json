@@ -1,0 +1,41 @@
+{
+  "provisioners": [
+    {
+      "type": "shell",
+      "execute_command": "chmod +x {{ .Path }}; sudo {{ .Vars }} {{ .Path }}",
+      "scripts": [
+        "scripts/cleanup.sh"
+      ]
+    }
+  ],
+  "builders": [
+    {
+      "type": "qemu",
+      "vm_name": "centos-6.7-x86_64-minimal-qemu",
+      "boot_command": [
+        "<tab> text selinux=0 ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/centos6.kickstart<enter><wait>"
+      ],
+      "boot_wait": "5s",
+      "disk_size": 122880,
+      "format": "qcow2",
+      "http_directory": "http",
+      "iso_url": "https://mirrors.kernel.org/centos/6.7/isos/x86_64/CentOS-6.7-x86_64-minimal.iso",
+      "iso_checksum_type": "sha256",
+      "iso_checksum": "9d3fec5897be6b3fed4d3dda80b8fa7bb62c616bbfd4bdcd27295ca9b764f498",
+      "ssh_username": "packer",
+      "ssh_password": "packer",
+      "ssh_port": 22,
+      "ssh_wait_timeout": "10000s",
+      "shutdown_command": "echo 'rm -f /etc/ssh/ssh_host*; rm -f /tmp/shutdown.sh; /sbin/halt -h -p' > /tmp/shutdown.sh; sudo sh /tmp/shutdown.sh",
+      "qemuargs": [
+        [ "-m", "1024M" ]
+      ]
+    }
+  ],
+  "post-processors": [
+    {
+      "type": "vagrant",
+      "output": "centos-6.7-x86_64-minimal-qemu.box"
+    }
+  ]
+}
