@@ -1,5 +1,14 @@
 Ideas for stuff to do.
 
+# Repo layout
+I dislike how the layered approach is creating hideously long names. There may
+be a better way to accomplish what I want.
+
+# yml2json
+TravisCI has a packer-templates repo that uses yml for their templates and
+converts it to the packer json format. This has the added advantage of allowing
+comments and may provide other advantages.
+
 # Box versioning
 Vagrant boxes have a metadata.json file which allows for box versioning. Packer
 doesn't make use of that functionality through the vagrant post processor
