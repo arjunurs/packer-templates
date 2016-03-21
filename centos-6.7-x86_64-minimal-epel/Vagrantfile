@@ -4,7 +4,7 @@
 # https://docs.vagrantup.com.
 
 Vagrant.configure(2) do |config|
-  config.vm.box = "centos-6.7-x86_64-minimal.box"
+  config.vm.box = "centos-6.7-x86_64-minimal-epel.box"
 
   # This is the default synced folder. Without VirtualBox Guest Additions this
   # mount will not succeed and the timeout takes a while, so disable it to boot

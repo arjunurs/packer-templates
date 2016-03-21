@@ -72,9 +72,12 @@ chvt 3
 yum -y update
 # Install man pages
 yum -y install yum-utils man man-pages
+# Install EPEL
+yum -y install https://dl.fedoraproject.org/pub/epel/epel-release-latest-6.noarch.rpm
+
 # Disable graphical boot
-sed -i 's/^splashimage/d' /boot/grub/grub.conf
-sed -i 's/ rhgb quiet//'  /boot/grub/grub.conf
+sed -i '/^splashimage/d' /boot/grub/grub.conf
+sed -i 's/ rhgb quiet//' /boot/grub/grub.conf
 
 # Set up the vagrant insecure key
 # https://github.com/mitchellh/vagrant/tree/master/keys
