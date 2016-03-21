@@ -1,0 +1,18 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure(2) do |config|
+  # https://docs.vagrantup.com.
+  config.vm.box = "centos-6.7-x86_64-minimal.box"
+  # This is the default synced folder. Without VirtualBox Guest Additions this
+  # mount will not succeed and the timeout takes a while, so disable it to boot
+  # quickly.
+  config.vm.synced_folder ".", "/vagrant", disabled: true
+
+  config.vm.provider "virtualbox" do |vb|
+    vb.memory = "1024"
+    # https://www.virtualbox.org/manual/ch08.html#vboxmanage-modifyvm
+    # virtio may have improved performance over the default emulated e1000 NIC.
+    vb.customize ["modifyvm", :id, "--nictype1", "virtio"]
+  end
+end
