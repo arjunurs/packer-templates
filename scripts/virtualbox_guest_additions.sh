@@ -25,3 +25,4 @@ yum -y install \
 MAKE='/usr/bin/gmake -i' /mnt/VBoxLinuxAdditions.run || true
 
 umount "${MNTDIR}"
+rm -f "${VBOXGUESTADDSISO}"
