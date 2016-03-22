@@ -11,13 +11,15 @@ Vagrant.configure(2) do |config|
   # quickly.
   config.vm.synced_folder ".", "/vagrant", disabled: true
 
+  # Forward a port for VNC
+  # config.vm.network "forwarded_port", guest: 5901, host: 5901
+
   config.vm.provider "virtualbox" do |vb|
     # Show the GUI
     vb.gui = true
     # If using a desktop environment, allocate more VRAM and enable 3d accel
     vb.customize ["modifyvm", :id, "--vram", "64"]
     vb.customize ["modifyvm", :id, "--accelerate3d", "on"]
-
     # Vagrant guests are allocated 1 CPU by default. This option can enable more
     vb.cpus = "4"
     vb.memory = "1024"

@@ -5,6 +5,7 @@
       "execute_command": "chmod +x {{ .Path }}; sudo {{ .Vars }} {{ .Path }}",
       "scripts": [
         "../scripts/graphical.sh",
+        "../scripts/virtualbox_guest_additions.sh",
         "../scripts/cleanup.sh"
       ]
     }
@@ -16,7 +17,8 @@
       "vm_name": "centos-6.7-x86_64-minimal-epel-elrepo-kernel-ml-graphical",
       "boot_wait": "5s",
       "format": "ova",
-      "guest_additions_mode": "disable",
+      "guest_additions_mode": "upload",
+      "guest_additions_path": "/tmp/VBoxGuestAdditions.iso",
       "http_directory": "http",
       "ssh_username": "vagrant",
       "ssh_password": "vagrant",
