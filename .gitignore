@@ -1,5 +1,5 @@
-output-*/
-o-*/
+build/
 packer_cache/
+*.ova
 *.box
 .vagrant/
