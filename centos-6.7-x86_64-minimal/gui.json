@@ -1,0 +1,37 @@
+{
+  "provisioners": [
+    {
+      "type": "shell",
+      "execute_command": "chmod +x {{ .Path }}; sudo {{ .Vars }} {{ .Path }}",
+      "scripts": [
+        "../scripts/centos-gui.sh",
+        "../scripts/cleanup.sh"
+      ]
+    }
+  ],
+  "builders": [
+    {
+      "type": "virtualbox-ovf",
+      "source_path": "./o-kml/kernel-ml-epel.ova",
+      "output_directory": "o-gui",
+      "vm_name": "gui",
+      "boot_wait": "5s",
+      "format": "ova",
+      "guest_additions_mode": "disable",
+      "http_directory": "http",
+      "ssh_username": "vagrant",
+      "ssh_password": "vagrant",
+      "ssh_port": 22,
+      "ssh_wait_timeout": "10000s",
+      "shutdown_command": "echo 'rm -f /etc/ssh/ssh_host*; rm -f /tmp/shutdown.sh; /sbin/halt -h -p' > /tmp/shutdown.sh; sudo sh /tmp/shutdown.sh",
+      "vboxmanage": [
+        [
+          "modifyvm",
+          "{{.Name}}",
+          "--memory",
+          "1024"
+        ]
+      ]
+    }
+  ]
+}

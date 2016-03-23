@@ -1,5 +1,14 @@
 Ideas for stuff to do.
 
+# Chaining/layering functionality
+Makefiles seem to work more effectively than packer natively for handling chains
+of builds.
+
+# OVA/OVF all the things
+Just about everything seems to accept OVA/OVF. It might make sense to have that
+be the standard format for the class of appopriate targets (excluding Docker,
+etc).
+
 # Repo layout
 I dislike how the layered approach is creating hideously long names. There may
 be a better way to accomplish what I want.

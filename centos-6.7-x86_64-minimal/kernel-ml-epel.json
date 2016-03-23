@@ -5,6 +5,7 @@
       "execute_command": "chmod +x {{ .Path }}; sudo {{ .Vars }} {{ .Path }}",
       "scripts": [
         "../scripts/elrepo-kernel-ml.sh",
+        "../scripts/epel.sh",
         "../scripts/cleanup.sh"
       ]
     }
@@ -12,8 +13,9 @@
   "builders": [
     {
       "type": "virtualbox-ovf",
-      "source_path": "../centos-6.7-x86_64-minimal-epel/output-virtualbox-iso/centos-6.7-x86_64-minimal-epel.ova",
-      "vm_name": "centos-6.7-x86_64-minimal-epel-elrepo-kernel-ml",
+      "source_path": "./o-base/centos-6.7-x86_64-minimal.ova",
+      "output_directory": "o-kml",
+      "vm_name": "kernel-ml-epel",
       "boot_wait": "5s",
       "format": "ova",
       "guest_additions_mode": "disable",
@@ -24,15 +26,13 @@
       "ssh_wait_timeout": "10000s",
       "shutdown_command": "echo 'rm -f /etc/ssh/ssh_host*; rm -f /tmp/shutdown.sh; /sbin/halt -h -p' > /tmp/shutdown.sh; sudo sh /tmp/shutdown.sh",
       "vboxmanage": [
-        ["modifyvm", "{{.Name}}","--memory","1024"]
+        [
+          "modifyvm",
+          "{{.Name}}",
+          "--memory",
+          "1024"
+        ]
       ]
-    }
-  ],
-  "post-processors": [
-    {
-      "type": "vagrant",
-      "keep_input_artifact": true,
-      "output": "centos-6.7-x86_64-minimal-epel-elrepo-kernel-ml.box"
     }
   ]
 }
