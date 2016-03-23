@@ -4,18 +4,18 @@
       "type": "shell",
       "execute_command": "chmod +x {{ .Path }}; sudo {{ .Vars }} {{ .Path }}",
       "scripts": [
-        "../scripts/elrepo-kernel-ml.sh",
-        "../scripts/epel.sh",
-        "../scripts/cleanup.sh"
+        "scripts/elrepo-kernel-ml.sh",
+        "scripts/epel.sh",
+        "scripts/cleanup.sh"
       ]
     }
   ],
   "builders": [
     {
       "type": "virtualbox-ovf",
-      "source_path": "./o-base/centos-6.7-x86_64-minimal.ova",
-      "output_directory": "o-kml",
-      "vm_name": "kernel-ml-epel",
+      "source_path": "build/c67x64-base.ova",
+      "output_directory": "build/out",
+      "vm_name": "c67x64-kernel-ml-epel",
       "boot_wait": "5s",
       "format": "ova",
       "guest_additions_mode": "disable",

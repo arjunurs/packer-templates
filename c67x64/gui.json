@@ -4,17 +4,17 @@
       "type": "shell",
       "execute_command": "chmod +x {{ .Path }}; sudo {{ .Vars }} {{ .Path }}",
       "scripts": [
-        "../scripts/centos-gui.sh",
-        "../scripts/cleanup.sh"
+        "scripts/centos-gui.sh",
+        "scripts/cleanup.sh"
       ]
     }
   ],
   "builders": [
     {
       "type": "virtualbox-ovf",
-      "source_path": "./o-kml/kernel-ml-epel.ova",
-      "output_directory": "o-gui",
-      "vm_name": "gui",
+      "source_path": "build/c67x64-kernel-ml-epel.ova",
+      "output_directory": "build/out",
+      "vm_name": "c67x64-gui",
       "boot_wait": "5s",
       "format": "ova",
       "guest_additions_mode": "disable",
