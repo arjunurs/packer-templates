@@ -5,7 +5,6 @@
       "execute_command": "chmod +x {{ .Path }}; sudo {{ .Vars }} {{ .Path }}",
       "scripts": [
         "../scripts/graphical.sh",
-        "../scripts/virtualbox_guest_additions.sh",
         "../scripts/cleanup.sh"
       ]
     }
