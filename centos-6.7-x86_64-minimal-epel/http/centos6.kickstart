@@ -93,6 +93,6 @@ echo "UseDNS no" >> /etc/ssh/sshd_config
 # Disable the sudo requirement for an interactive session. Required for most
 # automation that uses ssh + sudo: ansible, packer, etc
 sed -i "s/^.*requiretty/#Defaults requiretty/" /etc/sudoers
-) 2>&1 | /usr/bin/tee /var/log/post_install.log
+) 2>&1 | /usr/bin/tee /var/log/install_post.log
 chvt 1
 %end

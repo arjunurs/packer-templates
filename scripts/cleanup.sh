@@ -30,7 +30,7 @@ service rsyslog stop
 rm -f \
   /var/log/anaconda* \
   /root/anaconda-ks.cfg \
-  /root/install.log*
+  /root/install*.log*
 echo -n | tee \
   /var/log/{cron,dmesg,dracut.log,lastlog,maillog,messages,secure,wtmp,yum.log}
 
