@@ -13,7 +13,7 @@
   "builders": [
     {
       "type": "virtualbox-ovf",
-      "source_path": "build/c67x64-base.ova",
+      "source_path": "build/c67x64-minimal.ova",
       "output_directory": "build/out",
       "vm_name": "c67x64-kernel-ml-epel",
       "boot_wait": "5s",
