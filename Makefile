@@ -12,10 +12,11 @@ endif
 # CentOS-6.7-x86_64-minimal
 C67DIR             := c67x64
 C67TARGETS         := minimal kernel-ml-epel gui
-C67TEMPLATES       := $(addsuffix .json,$(addprefix $(C67DIR)/,$(C67TARGETS)))
 C67OVAS            := $(addprefix build/,$(addsuffix .ova,$(addprefix $(C67DIR)-,$(C67TARGETS))))
-$(info C67 OVAs: $(C67OVAS))
-$(info C67 Templates: $(C67TEMPLATES))
+
+#C67TEMPLATES       := $(addsuffix .json,$(addprefix $(C67DIR)/,$(C67TARGETS)))
+#$(info C67 OVAs: $(C67OVAS))
+#$(info C67 Templates: $(C67TEMPLATES))
 
 all: $(C67OVAS)
 
