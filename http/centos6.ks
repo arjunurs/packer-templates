@@ -9,7 +9,7 @@
 #   https://www.packer.io/docs/
 
 # Disable the root account
-rootpw --iscrypted !!
+rootpw vagrant
 # Create a regular user
 # user is given sudo in %post
 user --name=vagrant --password=vagrant
