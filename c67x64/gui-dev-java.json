@@ -1,6 +1,26 @@
 {
   "provisioners": [
     {
+      "type": "file",
+      "source": "cache/nix-1.11.2-x86_64-linux.tar.bz2",
+      "destination": "nix-1.11.2-x86_64-linux.tar.bz2"
+    },
+    {
+      "type": "file",
+      "source": "cache/ideaIC-2016.1.tar.gz",
+      "destination": "ideaIC-2016.1.tar.gz"
+    },
+    {
+      "type": "file",
+      "source": "cache/jdk-8u66-linux-x64.rpm",
+      "destination": "jdk-8u66-linux-x64.rpm"
+    },
+    {
+      "type": "file",
+      "source": "cache/netbeans-8.1-javase-linux.sh",
+      "destination": "netbeans-8.1-javase-linux.sh"
+    },
+    {
       "type": "shell",
       "execute_command": "chmod +x {{ .Path }}; sudo {{ .Vars }} {{ .Path }}",
       "scripts": [

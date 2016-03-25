@@ -1,4 +1,5 @@
 build/
+cache/
 packer_cache/
 *.ova
 *.box

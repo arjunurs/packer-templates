@@ -1,0 +1,24 @@
+all: \
+	cache/nix-1.11.2-x86_64-linux.tar.bz2 \
+	cache/jdk-8u66-linux-x64.rpm \
+	cache/netbeans-8.1-javase-linux.sh \
+	cache/ideaIC-2016.1.tar.gz
+
+cache/nix-1.11.2-x86_64-linux.tar.bz2: | cache
+	wget -O $@ https://nixos.org/releases/nix/nix-1.11.2/nix-1.11.2-x86_64-linux.tar.bz2
+
+cache/jdk-8u66-linux-x64.rpm: | cache
+	wget -O $@ \
+		--header='Cookie: oraclelicense=accept-securebackup-cookie' \
+		http://download.oracle.com/otn-pub/java/jdk/8u66-b17/jdk-8u66-linux-x64.rpm
+
+cache/netbeans-8.1-javase-linux.sh: | cache
+	wget -O $@ http://download.netbeans.org/netbeans/8.1/final/bundles/netbeans-8.1-javase-linux.sh
+
+cache/ideaIC-2016.1.tar.gz: | cache
+	wget -O $@ https://download.jetbrains.com/idea/ideaIC-2016.1.tar.gz
+
+cache:
+	mkdir cache
+
+.PHONY: all
