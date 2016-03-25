@@ -29,17 +29,17 @@ all: $(C67OVAS)
 #	mv $(subst build,build/out,$@) $@
 #	rmdir build/out
 
-build/$(C67DIR)-minimal.ova: $(C67DIR)/minimal.json build
+build/$(C67DIR)-minimal.ova: $(C67DIR)/minimal.json | build
 	packer build $<
 	mv $(subst build,build/out,$@) $@
 	rmdir build/out
 
-build/$(C67DIR)-kernel-ml-epel.ova: $(C67DIR)/kernel-ml-epel.json build/c67x64-minimal.ova build
+build/$(C67DIR)-kernel-ml-epel.ova: $(C67DIR)/kernel-ml-epel.json build/c67x64-minimal.ova | build
 	packer build $<
 	mv $(subst build,build/out,$@) $@
 	rmdir build/out
 
-build/$(C67DIR)-gui.ova: $(C67DIR)/gui.json build/c67x64-kernel-ml-epel.ova build
+build/$(C67DIR)-gui.ova: $(C67DIR)/gui.json build/c67x64-kernel-ml-epel.ova | build
 	packer build $<
 	mv $(subst build,build/out,$@) $@
 	rmdir build/out
