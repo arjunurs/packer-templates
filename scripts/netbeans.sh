@@ -37,3 +37,5 @@ NETBEANS_MD5="dfa4af8f4a1fe88e3f8dea6b646882a7"
 echo "${NETBEANS_MD5}  ${NETBEANS_FILENAME}" | md5sum -c
 which java &>/dev/null
 sh netbeans-8.1-javase-linux.sh --silent
+[ -f "${HOME}/netbeans-8.1/etc/netbeans.conf" ]
+sed -i 's|^netbeans_jdkhome=.*|netbeans_jdkhome="/usr/java/latest"|' "${HOME}/netbeans-8.1/etc/netbeans.conf"
