@@ -11,7 +11,7 @@ endif
 
 # CentOS-6.7-x86_64-minimal
 C67DIR             := c67x64
-C67TARGETS         := minimal kernel-ml-epel gui
+C67TARGETS         := minimal kernel-ml-epel gui gui-dev-java
 C67OVAS            := $(addprefix build/,$(addsuffix .ova,$(addprefix $(C67DIR)-,$(C67TARGETS))))
 
 #C67TEMPLATES       := $(addsuffix .json,$(addprefix $(C67DIR)/,$(C67TARGETS)))
@@ -40,6 +40,11 @@ build/$(C67DIR)-kernel-ml-epel.ova: $(C67DIR)/kernel-ml-epel.json build/c67x64-m
 	rmdir build/out
 
 build/$(C67DIR)-gui.ova: $(C67DIR)/gui.json build/c67x64-kernel-ml-epel.ova | build
+	packer build $<
+	mv $(subst build,build/out,$@) $@
+	rmdir build/out
+
+build/$(C67DIR)-gui-dev-java.ova: $(C67DIR)/gui-dev-java.json build/c67x64-gui.ova | build
 	packer build $<
 	mv $(subst build,build/out,$@) $@
 	rmdir build/out

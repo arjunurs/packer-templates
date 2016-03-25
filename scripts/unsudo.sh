@@ -20,7 +20,7 @@ if [ ${EUID} -eq 0 ]; then
       echo "This script is not meant to run as root" >&2
       exit 1
     else
-      sudo -u "${SUDO_USER}" "${0}" ${@}
+      sudo -u "${SUDO_USER}" -i "${0}" ${@}
       exit 0
     fi
   fi
