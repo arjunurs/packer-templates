@@ -2,7 +2,8 @@ all: \
 	cache/nix-1.11.2-x86_64-linux.tar.bz2 \
 	cache/jdk-8u66-linux-x64.rpm \
 	cache/netbeans-8.1-javase-linux.sh \
-	cache/ideaIC-2016.1.tar.gz
+	cache/ideaIC-2016.1.tar.gz \
+	cache/VMwareTools-10.0.5-3228253.tar.gz
 
 cache/nix-1.11.2-x86_64-linux.tar.bz2: | cache
 	wget -O $@ https://nixos.org/releases/nix/nix-1.11.2/nix-1.11.2-x86_64-linux.tar.bz2
@@ -18,7 +19,22 @@ cache/netbeans-8.1-javase-linux.sh: | cache
 cache/ideaIC-2016.1.tar.gz: | cache
 	wget -O $@ https://download.jetbrains.com/idea/ideaIC-2016.1.tar.gz
 
+cache/VMwareTools-10.0.5-3228253.tar.gz: | cache/linux.iso cache
+	7z -ocache e cache/linux.iso VMwareTools-10.0.5-3228253.tar.gz
+
+cache/linux.iso: | cache/com.vmware.fusion.tools.linux.zip cache
+	unzip -o -d cache/ -j cache/com.vmware.fusion.tools.linux.zip payload/linux.iso
+
+cache/com.vmware.fusion.tools.linux.zip: | cache/com.vmware.fusion.tools.linux.zip.tar cache
+	tar -C cache -xf cache/com.vmware.fusion.tools.linux.zip.tar com.vmware.fusion.tools.linux.zip
+
+cache/com.vmware.fusion.tools.linux.zip.tar: | cache
+	# https://github.com/rasa/vmware-tools-patches
+	wget -O $@ https://softwareupdate.vmware.com/cds/vmw-desktop/fusion/8.1.0/3272237/packages/com.vmware.fusion.tools.linux.zip.tar
+
 cache:
 	mkdir cache
 
 .PHONY: all
+
+.INTERMEDIATE: cache/linux.iso cache/com.vmware.fusion.tools.linux.zip
