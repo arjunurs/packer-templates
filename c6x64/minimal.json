@@ -4,22 +4,27 @@
       "type": "shell",
       "execute_command": "chmod +x {{ .Path }}; sudo {{ .Vars }} {{ .Path }}",
       "scripts": [
-        "scripts/elrepo-kernel-ml.sh",
-        "scripts/epel.sh",
         "scripts/cleanup.sh"
       ]
     }
   ],
   "builders": [
     {
-      "type": "virtualbox-ovf",
-      "source_path": "build/c67x64-minimal.ova",
+      "type": "virtualbox-iso",
       "output_directory": "build/out",
-      "vm_name": "c67x64-kernel-ml-epel",
+      "vm_name": "c6x64-minimal",
+      "boot_command": [
+        "<tab> text selinux=0 ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/centos6.ks<enter><wait>"
+      ],
       "boot_wait": "5s",
+      "disk_size": 122880,
       "format": "ova",
       "guest_additions_mode": "disable",
+      "guest_os_type": "RedHat_64",
       "http_directory": "http",
+      "iso_url": "http://mirrors.kernel.org/centos/6/isos/x86_64/CentOS-6.8-x86_64-minimal.iso",
+      "iso_checksum_type": "sha256",
+      "iso_checksum": "ec49c297d484b9da0787e5944edc38f7c70f21c0f6a60178d8e9a8926d1949f4",
       "ssh_username": "vagrant",
       "ssh_password": "vagrant",
       "ssh_port": 22,

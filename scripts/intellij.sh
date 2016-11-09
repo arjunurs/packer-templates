@@ -28,13 +28,13 @@ fi
 
 cd "${HOME}"
 
-INTELLIJ_URL="https://download.jetbrains.com/idea/ideaIC-2016.1.tar.gz"
+INTELLIJ_URL="https://download.jetbrains.com/idea/ideaIC-2016.2.5.tar.gz"
 INTELLIJ_FILENAME="$(basename "${INTELLIJ_URL}")"
-INTELLIJ_SHA256='d8d889c42dfde1f41030e9d3f5850d364109df73a6a35081edc72d7d95f22fbf'
+#INTELLIJ_SHA256='9e3e0f4538707da37237106697fff4e0b5ed651085f456671764e1fbc9651bbe'
 
 #curl -L "${INTELLIJ_URL}" > "${INTELLIJ_FILENAME}"
 [ -f "${INTELLIJ_FILENAME}" ]
-echo "${INTELLIJ_SHA256}  ${INTELLIJ_FILENAME}" | sha256sum -c
+#echo "${INTELLIJ_SHA256}  ${INTELLIJ_FILENAME}" | sha256sum -c
 EXTRACTDIR="$(dirname $(tar -ztf "${INTELLIJ_FILENAME}" | head -n1))"
 tar -zxf "${INTELLIJ_FILENAME}"
 [ -f "${HOME}/${EXTRACTDIR}/bin/idea.sh" ]

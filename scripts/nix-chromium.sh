@@ -34,4 +34,4 @@ nix-env -i chromium
 umask 0022
 mkdir -p ${HOME}/.local/share/applications
 DESKTOP_SHORTCUT="$(nix-env -q chromium --out-path | awk '{print $2}')/share/applications/chromium.desktop"
-[ -f "${DESKTOP_SHORTCUT}" ] && cp "${DESKTOP_SHORTCUT}" ${HOME}/.local/share/applications/
+#[ -f "${DESKTOP_SHORTCUT}" ] && cp "${DESKTOP_SHORTCUT}" ${HOME}/.local/share/applications/

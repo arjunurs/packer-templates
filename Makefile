@@ -9,16 +9,16 @@ ifndef VBOXMANAGE
 $(error "Required binary 'VBoxManage' is unavailable in PATH. Please install VirtualBox.")
 endif
 
-# CentOS-6.7-x86_64-minimal
-C67DIR             := c67x64
-C67TARGETS         := minimal kernel-ml-epel gui gui-dev-java
-C67OVAS            := $(addprefix build/,$(addsuffix .ova,$(addprefix $(C67DIR)-,$(C67TARGETS))))
+# CentOS-6-x86_64-minimal
+C6DIR             := c6x64
+C6TARGETS         := minimal kernel-ml-epel gui gui-dev-java
+C6OVAS            := $(addprefix build/,$(addsuffix .ova,$(addprefix $(C6DIR)-,$(C6TARGETS))))
 
 #C67TEMPLATES       := $(addsuffix .json,$(addprefix $(C67DIR)/,$(C67TARGETS)))
 #$(info C67 OVAs: $(C67OVAS))
 #$(info C67 Templates: $(C67TEMPLATES))
 
-all: $(C67OVAS)
+all: $(C6OVAS)
 
 # This works mostly as expected.
 # The problem is I'm not sure how to declare depdencies: gui depends on
@@ -29,22 +29,22 @@ all: $(C67OVAS)
 #	mv $(subst build,build/out,$@) $@
 #	rmdir build/out
 
-build/$(C67DIR)-minimal.ova: $(C67DIR)/minimal.json | build
+build/$(C6DIR)-minimal.ova: $(C6DIR)/minimal.json | build
 	packer build $<
 	mv $(subst build,build/out,$@) $@
 	rmdir build/out
 
-build/$(C67DIR)-kernel-ml-epel.ova: $(C67DIR)/kernel-ml-epel.json build/c67x64-minimal.ova | build
+build/$(C6DIR)-kernel-ml-epel.ova: $(C6DIR)/kernel-ml-epel.json build/c6x64-minimal.ova | build
 	packer build $<
 	mv $(subst build,build/out,$@) $@
 	rmdir build/out
 
-build/$(C67DIR)-gui.ova: $(C67DIR)/gui.json build/c67x64-kernel-ml-epel.ova | build
+build/$(C6DIR)-gui.ova: $(C6DIR)/gui.json build/c6x64-kernel-ml-epel.ova | build
 	packer build $<
 	mv $(subst build,build/out,$@) $@
 	rmdir build/out
 
-build/$(C67DIR)-gui-dev-java.ova: $(C67DIR)/gui-dev-java.json build/c67x64-gui.ova | build
+build/$(C6DIR)-gui-dev-java.ova: $(C6DIR)/gui-dev-java.json build/c6x64-gui.ova | build
 	packer build $<
 	mv $(subst build,build/out,$@) $@
 	rmdir build/out

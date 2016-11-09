@@ -1,34 +1,11 @@
 {
   "provisioners": [
     {
-      "type": "file",
-      "source": "cache/nix-1.11.2-x86_64-linux.tar.bz2",
-      "destination": "nix-1.11.2-x86_64-linux.tar.bz2"
-    },
-    {
-      "type": "file",
-      "source": "cache/ideaIC-2016.1.tar.gz",
-      "destination": "ideaIC-2016.1.tar.gz"
-    },
-    {
-      "type": "file",
-      "source": "cache/jdk-8u66-linux-x64.rpm",
-      "destination": "jdk-8u66-linux-x64.rpm"
-    },
-    {
-      "type": "file",
-      "source": "cache/netbeans-8.1-javase-linux.sh",
-      "destination": "netbeans-8.1-javase-linux.sh"
-    },
-    {
       "type": "shell",
       "execute_command": "chmod +x {{ .Path }}; sudo {{ .Vars }} {{ .Path }}",
       "scripts": [
-        "scripts/nix.sh",
-        "scripts/nix-chromium.sh",
-        "scripts/jdk.sh",
-        "scripts/netbeans.sh",
-        "scripts/intellij.sh",
+        "scripts/elrepo-kernel-ml.sh",
+        "scripts/epel.sh",
         "scripts/cleanup.sh"
       ]
     }
@@ -36,9 +13,9 @@
   "builders": [
     {
       "type": "virtualbox-ovf",
-      "source_path": "build/c67x64-gui.ova",
+      "source_path": "build/c6x64-minimal.ova",
       "output_directory": "build/out",
-      "vm_name": "c67x64-gui-dev-java",
+      "vm_name": "c6x64-kernel-ml-epel",
       "boot_wait": "5s",
       "format": "ova",
       "guest_additions_mode": "disable",
