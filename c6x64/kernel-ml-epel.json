@@ -3,6 +3,7 @@
     {
       "type": "shell",
       "execute_command": "chmod +x {{ .Path }}; sudo {{ .Vars }} {{ .Path }}",
+      "expect_disconnect": true,
       "scripts": [
         "scripts/elrepo-kernel-ml.sh",
         "scripts/epel.sh",

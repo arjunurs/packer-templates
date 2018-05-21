@@ -48,7 +48,14 @@ zerombr
 bootloader --location=mbr --append="selinux=0"
 # Create a single ext4 partition covering the entire disk
 clearpart --all
-part / --fstype=ext4 --grow --asprimary --size=1
+
+# part / --fstype=ext4 --grow --asprimary --size=1
+
+part /boot --fstype ext4 --size=1024
+part swap --size=8192
+part pv.01  --size=1  --grow
+volgroup vg00 pv.01
+logvol / --vgname=vg00  --fstype=ext4  --size=1 --name=lv_root --grow
 
 # Minimal package set
 # Keep in mind the install is being done against the minimal ISO which has a
