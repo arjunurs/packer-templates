@@ -32,10 +32,10 @@ cd "${HOME}"
 #URL="http://download.oracle.com/otn-pub/java/jdk/8u66-b17/jdk-8u66-linux-x64.rpm"
 #URL="http://download.oracle.com/otn-pub/java/jdk/8u77-b03/jdk-8u77-linux-x64.rpm"
 #URL="http://download.oracle.com/otn-pub/java/jdk/8u91-b14/jdk-8u91-linux-x64.rpm"
-URL="http://download.oracle.com/otn-pub/java/jdk/8u144-b01/090f390dda5b47b9b721c7dfaa008135/jdk-8u144-linux-x64.rpm"
+URL="http://download.oracle.com/otn-pub/java/jdk/8u181-b13/96a7b8442fe848ef90c96a2fad6ed6d1/jdk-8u181-linux-x64.rpm"
 FILENAME="$(basename "${URL}")"
 [ -f "${FILENAME}" ]
 #curl -f -L -H 'Cookie: oraclelicense=accept-securebackup-cookie' "${URL}" > "${FILENAME}"
-rpm -qp "${FILENAME}" -K
+# rpm -qp "${FILENAME}" -K
 sudo yum -y remove 'java-*-openj*' || /bin/true
 sudo yum -y install "${FILENAME}"

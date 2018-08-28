@@ -31,6 +31,6 @@ cd "${HOME}"
 
 curl https://nixos.org/nix/install > nix_installer
 # nixos.org can get hella slow, use a cached copy
-sed -i 's/^curl -L "$url" | bzcat/bzcat nix-2.0.2-x86_64-linux.tar.bz2/' nix_installer
+sed -i 's/^curl -L "$url" | bzcat/bzcat nix-2.0.4-x86_64-linux.tar.bz2/' nix_installer
 sh nix_installer
 rm -f nix_installer

@@ -28,9 +28,9 @@ fi
 
 cd "${HOME}"
 
-INTELLIJ_URL="https://download.jetbrains.com/idea/ideaIC-2018.1.3.tar.gz"
+INTELLIJ_URL="https://download.jetbrains.com/idea/ideaIC-2018.2.2.tar.gz"
 INTELLIJ_FILENAME="$(basename "${INTELLIJ_URL}")"
-#INTELLIJ_SHA256='9e3e0f4538707da37237106697fff4e0b5ed651085f456671764e1fbc9651bbe'
+#INTELLIJ_SHA256='25c893b95a73921f47a776b5a4f21747e2eb6d31c0dc01109c2b68cdd8fc2591'
 
 #curl -L "${INTELLIJ_URL}" > "${INTELLIJ_FILENAME}"
 [ -f "${INTELLIJ_FILENAME}" ]
