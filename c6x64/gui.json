@@ -12,26 +12,27 @@
   "builders": [
     {
       "type": "virtualbox-ovf",
-      "source_path": "build/c6x64-kernel-ml-epel.ova",
+      "source_path": "c6x64-kernel-ml-epel.ova",
       "output_directory": "build/out",
       "vm_name": "c6x64-gui",
       "boot_wait": "5s",
       "format": "ova",
       "guest_additions_mode": "disable",
       "http_directory": "http",
-      "ssh_username": "vagrant",
+      "ssh_username": "{{ user `NEWUSERLOGIN` }}",
       "ssh_password": "vagrant",
       "ssh_port": 22,
       "ssh_wait_timeout": "10000s",
       "shutdown_command": "echo 'rm -f /etc/ssh/ssh_host*; rm -f /tmp/shutdown.sh; /sbin/halt -h -p' > /tmp/shutdown.sh; sudo sh /tmp/shutdown.sh",
       "vboxmanage": [
-        [
-          "modifyvm",
-          "{{.Name}}",
-          "--memory",
-          "1024"
-        ]
+        ["modifyvm", "{{.Name}}", "--memory","8192"],
+        ["modifyvm", "{{.Name}}", "--cpus", "3"]
       ]
     }
-  ]
+],
+
+"post-processors": [{
+      "type": "shell-local",
+      "command": "mv build/out/c6x64-gui.ova . ; rm -rf build/*"
+  }]
 }
