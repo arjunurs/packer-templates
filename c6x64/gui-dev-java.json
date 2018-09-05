@@ -27,6 +27,10 @@
       "source": "cache/netbeans-8.2-linux.sh",
       "destination": "netbeans-8.2-linux.sh"
     },
+    {
+        "type": "shell-local",
+        "command": "patch scripts/install-nix-2.0.4 < scripts/nixpatch"
+    },
   {
       "type": "shell",
       "environment_vars": [ "NEWUSERLOGIN={{ user `NEWUSERLOGIN` }}" ],

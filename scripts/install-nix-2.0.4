@@ -23,16 +23,23 @@ require_util() {
 }
 
 case "$(uname -s).$(uname -m)" in
-    Linux.x86_64) system=x86_64-linux; hash=d6db178007014ed47ad5460c1bd5b2cb9403b1ec543a0d6507cb27e15358341f;;
-    Linux.i?86) system=i686-linux; hash=b2e5b62a66c6d1951fdd5e01109680592b498ef40f28bfc790341f5b986ba34d;;
-    Linux.aarch64) system=aarch64-linux; hash=248be69c25f599ac214bad1e4f4003e27f1da83cb17f7cd762746bd2c215a0df;;
-    Darwin.x86_64) system=x86_64-darwin; hash=ec6279bb6d628867d82a6e751dac2bcb64ccea3194d753756a309f75fd704d4c;;
+    Linux.x86_64) system=x86_64-linux; hash=ad10b4da69035a585fe89d7330037c4a5d867a372bb0e52a1542ab95aec67999;;
+    Linux.i?86) system=i686-linux; hash=14b3b0c34971fb29f279164de83cae323ad443eb62529c368be38d5376bcb306;;
+    Linux.aarch64) system=aarch64-linux; hash=96c37fcb852d1bea19df29d49268d2b2878a73fef8f61801eec1434b7adc8d5a;;
+    Darwin.x86_64) system=x86_64-darwin; hash=938b2ab25fa344491eae51d8db7712028cc393b36a12250af7c5e87849631e0d;;
     *) oops "sorry, there is no binary distribution of Nix for your platform";;
 esac
 
-tarball="/home/$NEWUSERLOGIN/nix-2.0.4-$system.tar.bz2"
+url="https://nixos.org/releases/nix/nix-2.1.1/nix-2.1.1-$system.tar.bz2"
 
-echo "copying Nix 2.0.4 binary tarball for $system from $tarball to $tmpDir ..."
+tarball="$tmpDir/$(basename "$tmpDir/nix-2.1.1-$system.tar.bz2")"
+
+require_util curl "download the binary tarball"
+require_util bzcat "decompress the binary tarball"
+require_util tar "unpack the binary tarball"
+
+echo "downloading Nix 2.1.1 binary tarball for $system from '$url' to '$tmpDir'..."
+curl -L "$url" -o "$tarball" || oops "failed to download '$url'"
 
 if type sha256sum > /dev/null 2>&1; then
     hash2="$(sha256sum -b "$tarball" | cut -c1-64)"
@@ -41,7 +48,7 @@ elif type shasum > /dev/null 2>&1; then
 elif type openssl > /dev/null 2>&1; then
     hash2="$(openssl dgst -r -sha256 "$tarball" | cut -c1-64)"
 else
-    oops "cannot verify the SHA-256 hash of $tarball; you need one of 'shasum', 'sha256sum', or 'openssl'"
+    oops "cannot verify the SHA-256 hash of '$url'; you need one of 'shasum', 'sha256sum', or 'openssl'"
 fi
 
 if [ "$hash" != "$hash2" ]; then
@@ -50,7 +57,7 @@ fi
 
 unpack=$tmpDir/unpack
 mkdir -p "$unpack"
-< "$tarball" bzcat | tar -xf - -C "$unpack" || oops "failed to unpack $tarball"
+< "$tarball" bzcat | tar -xf - -C "$unpack" || oops "failed to unpack '$url'"
 
 script=$(echo "$unpack"/*/install)
 
