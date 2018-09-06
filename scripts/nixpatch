@@ -11,7 +11,7 @@
 33c33
 < url="https://nixos.org/releases/nix/nix-2.1.1/nix-2.1.1-$system.tar.bz2"
 ---
-> tarball="/home/$NEWUSERLOGIN/nix-2.0.4-$system.tar.bz2"
+> tarball="/home/vagrant/nix-2.0.4-$system.tar.bz2"
 35,42c35
 < tarball="$tmpDir/$(basename "$tmpDir/nix-2.1.1-$system.tar.bz2")"
 < 

@@ -33,15 +33,18 @@
     },
   {
       "type": "shell",
-      "environment_vars": [ "NEWUSERLOGIN={{ user `NEWUSERLOGIN` }}" ],
       "execute_command": "chmod +x {{ .Path }}; {{ .Vars }} {{ .Path }}",
       "scripts": [
         "scripts/install-nix-2.0.4"
     ]
 },
 {
+    "type": "shell-local",
+    "command": "patch -R scripts/install-nix-2.0.4 < scripts/nixpatch"
+},
+{
     "type": "shell",
-    "environment_vars": [ "NEWUSERLOGIN={{ user `NEWUSERLOGIN` }}", "JDK_FILENAME={{user `JDK_FILENAME`}}" ],
+    "environment_vars": [ "JDK_FILENAME={{user `JDK_FILENAME`}}" ],
     "execute_command": "chmod +x {{ .Path }}; sudo {{ .Vars }} {{ .Path }}",
     "scripts": [
       "scripts/install_jdk.sh"
@@ -49,7 +52,6 @@
 },
 {
     "type": "shell",
-    "environment_vars": [ "NEWUSERLOGIN={{ user `NEWUSERLOGIN` }}" ],
     "execute_command": "chmod +x {{ .Path }}; sudo {{ .Vars }} {{ .Path }}",
     "scripts": [
       "scripts/install_vmtools.sh"
@@ -57,7 +59,7 @@
 },
 {
     "type": "shell",
-    "environment_vars": [ "NEWUSERLOGIN={{ user `NEWUSERLOGIN` }}", "INTELLIJ_FILENAME={{ user `INTELLIJ_FILENAME` }}" ],
+    "environment_vars": [ "INTELLIJ_FILENAME={{ user `INTELLIJ_FILENAME` }}" ],
     "execute_command": "chmod +x {{ .Path }}; {{ .Vars }} {{ .Path }}",
     "scripts": [
       "scripts/install_intellij.sh"
@@ -65,7 +67,7 @@
 },
 {
     "type": "shell",
-    "environment_vars": [ "NEWUSERLOGIN={{ user `NEWUSERLOGIN` }}", "NETBEANS_FILENAME={{ user `NETBEANS_FILENAME` }}" ],
+    "environment_vars": [ "NETBEANS_FILENAME={{ user `NETBEANS_FILENAME` }}" ],
     "execute_command": "chmod +x {{ .Path }}; {{ .Vars }} {{ .Path }}",
     "scripts": [
       "scripts/install_netbeans.sh"
@@ -77,31 +79,23 @@
       "type": "virtualbox-ovf",
       "source_path": "c6x64-gui.ova",
       "output_directory": "build/out",
-      "vm_name": "c6x64-final",
+      "vm_name": "c6x64-gui-dev-java",
       "boot_wait": "5s",
       "format": "ova",
       "guest_additions_mode": "disable",
       "http_directory": "http",
-      "ssh_username": "{{ user `NEWUSERLOGIN` }}",
+      "ssh_username": "vagrant",
       "ssh_password": "vagrant",
       "ssh_port": 22,
       "ssh_wait_timeout": "10000s",
-      "shutdown_command": "echo 'rm -f /etc/ssh/ssh_host*; rm -f /tmp/shutdown.sh; /sbin/halt -h -p' > /tmp/shutdown.sh; sudo sh /tmp/shutdown.sh",
-      "vboxmanage": [
-        ["modifyvm", "{{.Name}}", "--memory","8192"],
-        ["modifyvm", "{{.Name}}", "--cpus", "3"]
-      ]
+      "shutdown_command": "echo 'rm -f /etc/ssh/ssh_host*; rm -f /tmp/shutdown.sh; /sbin/halt -h -p' > /tmp/shutdown.sh; sudo sh /tmp/shutdown.sh"
     }
 ],
 
 "post-processors": [
     {
       "type": "shell-local",
-      "command": "mv build/out/c6x64-final.ova . ; rm -rf build/*"
-  },
-  {
-    "type": "shell-local",
-    "command": "scripts/runovftool.sh c6x64-final.ova"
+      "command": "mv build/out/c6x64-gui-dev-java.ova . ; rm -rf build/*"
   }
 ]
 

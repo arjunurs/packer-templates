@@ -2,16 +2,8 @@
   "provisioners": [
     {
       "type": "shell",
-      "environment_vars": ["NEWUSERLOGIN={{ user `NEWUSERLOGIN` }}",
-                           "NEWUSERFULLNAME={{ user `NEWUSERFULLNAME` }}",
-                           "AWS_ACCESS_KEY_ID={{ user `AWS_ACCESS_KEY_ID`}}",
-                           "AWS_SECRET_ACCESS_KEY={{user `AWS_SECRET_ACCESS_KEY`}}",
-                           "AZURE_SECRET={{user `AZURE_SECRET`}}",
-                           "SVN_SERVER_URL={{user `SVN_SERVER_URL`}}"
-                          ],
       "execute_command": "chmod +x {{ .Path }}; sudo {{ .Vars }} {{ .Path }}",
       "scripts": [
-        "scripts/createuser.sh",
         "scripts/install_svn.sh",
         "scripts/install_git.sh",
         "scripts/cleanup.sh"
@@ -28,7 +20,7 @@
         "<tab> text selinux=0 ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/centos6.ks<enter><wait>"
       ],
       "boot_wait": "5s",
-      "disk_size": 51200,
+      "disk_size": 307200,
       "format": "ova",
       "guest_additions_mode": "disable",
       "guest_os_type": "RedHat_64",
