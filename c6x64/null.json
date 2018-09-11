@@ -17,8 +17,8 @@
     },
     {
         "type": "file",
-        "source": "cache/nix-2.0.2-x86_64-linuxaaaaaa.tar.bz2",
-        "destination": "nix-2.0.2-x86_64-linuxaaaaaa.tar.bz2"
+        "source": "cache/nix-2.0.2-x86_64-linux.tar.bz2",
+        "destination": "nix-2.0.2-x86_64-linux.tar.bz2"
       }
     ],
 
