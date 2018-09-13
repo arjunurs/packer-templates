@@ -4,7 +4,8 @@ all: \
 	cache/nix-2.1.1-x86_64-linux.tar.bz2 \
 	cache/jdk-8u172-linux-x64.rpm \
 	cache/netbeans-8.2-javase-linux.sh \
-	cache/ideaIC-2018.2.2.tar.gz
+	cache/ideaIC-2018.2.2.tar.gz \
+	cache/CLion-2018.2.3.tar.gz
 
 cache/nix-2.1.1-x86_64-linux.tar.bz2: | cache
 	${CURL} 'https://nixos.org/releases/nix/nix-2.1.1/nix-2.1.1-x86_64-linux.tar.bz2' > $@
@@ -19,6 +20,9 @@ cache/netbeans-8.2-javase-linux.sh: | cache
 
 cache/ideaIC-2018.2.2.tar.gz: | cache
 	${CURL} 'https://download.jetbrains.com/idea/ideaIC-2018.2.2.tar.gz' > $@
+
+cache/CLion-2018.2.3.tar.gz: | cache
+	${CURL} 'https://download.jetbrains.com/cpp/CLion-2018.2.3.tar.gz' > $@
 
 cache:
 	mkdir cache

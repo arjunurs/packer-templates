@@ -27,9 +27,16 @@
      "source": "cache/{{ user `INTELLIJ_FILENAME` }}",
      "destination": "{{ user `INTELLIJ_FILENAME` }}"
    },
+
+   {
+      "type": "file",
+      "source": "cache/{{ user `CLION_FILENAME` }}",
+      "destination": "{{ user `CLION_FILENAME` }}"
+    },
+
    {
        "type": "shell-local",
-       "command": "chmod 777 cache/netbeans-8.2-javase-linux.sh"
+       "command": "chmod 777 cache/{{ user `NETBEANS_FILENAME` }}"
    },
    {
       "type": "file",
@@ -72,6 +79,14 @@
     "execute_command": "chmod +x {{ .Path }}; {{ .Vars }} {{ .Path }}",
     "scripts": [
       "scripts/install_intellij.sh"
+  ]
+},
+{
+    "type": "shell",
+    "environment_vars": [ "CLION_FILENAME={{ user `CLION_FILENAME` }}" ],
+    "execute_command": "chmod +x {{ .Path }}; {{ .Vars }} {{ .Path }}",
+    "scripts": [
+      "scripts/install_clion.sh"
   ]
 },
 {
